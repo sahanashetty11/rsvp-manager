@@ -22,7 +22,8 @@ async function main() {
     { id: "p2", email: "shivani@gmail.com", name: "Shivani" },
     { id: "p3", email: "kumar@yahoo.com", name: "Kumar" },
     { id: "p4", email: "george@outlook.com", name: "George" },
-    { id: "p5", email: "jessica@outlook.com", name: "Jessica" }
+    { id: "p5", email: "jessica@outlook.com", name: "Jessica" },
+    { id: "p6", email: "john@outlook.com", name: "John" }
   ];
   await playerService.addOrUpdatePlayers(players);
 
@@ -37,16 +38,17 @@ async function main() {
     rsvpService.addOrUpdateStatus(players[1].id, events[0].id, "No"),
     rsvpService.addOrUpdateStatus(players[2].id, events[1].id, "Yes"),
     rsvpService.addOrUpdateStatus(players[3].id, events[1].id, "No"),
-    rsvpService.addOrUpdateStatus(players[4].id, events[0].id, "Maybe")
+    rsvpService.addOrUpdateStatus(players[4].id, events[0].id, "Maybe"),
+    rsvpService.addOrUpdateStatus(players[5].id, events[0].id, "Yes")
   ]);
 
   // Retrieve confirmed attendees for ev1
   const confirmedEv1 = await rsvpService.getConfirmedAttendees(events[0].id);
-  logger.log("Confirmed attendees: " + confirmedEv1.map(p => p.email).join(", "));
+  logger.log(`Confirmed attendees for event- ${events[0].name}: ` + confirmedEv1.map(p => p.email).join(", "));
 
   // Retrieve confirmed attendees for ev2
   const confirmedEv2 = await rsvpService.getConfirmedAttendees(events[1].id);
-  logger.log("Confirmed attendees: " + confirmedEv2.map(p => p.email).join(", "));
+  logger.log(`Confirmed attendees for event - ${events[1].name}: ` + confirmedEv2.map(p => p.email).join(", "));
 
   // Retrieve response counts for ev1
   const countsEv1 = await rsvpService.countResponses(events[0].id);
