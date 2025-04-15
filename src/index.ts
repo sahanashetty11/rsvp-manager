@@ -40,13 +40,21 @@ async function main() {
     rsvpService.addOrUpdateStatus(players[4].id, events[0].id, "Maybe")
   ]);
 
-  // Retrieve confirmed attendees.
-  const confirmed = await rsvpService.getConfirmedAttendees(events[0].id);
-  logger.log("Confirmed attendees: " + confirmed.map(p => p.email).join(", "));
+  // Retrieve confirmed attendees for ev1
+  const confirmedEv1 = await rsvpService.getConfirmedAttendees(events[0].id);
+  logger.log("Confirmed attendees: " + confirmedEv1.map(p => p.email).join(", "));
 
-  // Retrieve response counts.
-  const counts = await rsvpService.countResponses(events[0].id);
-  logger.log(`Event "${events[0].name}" counts: Total: ${counts.total}, Confirmed: ${counts.confirmed}, Declined: ${counts.declined}`);
+  // Retrieve confirmed attendees for ev2
+  const confirmedEv2 = await rsvpService.getConfirmedAttendees(events[0].id);
+  logger.log("Confirmed attendees: " + confirmedEv2.map(p => p.email).join(", "));
+
+  // Retrieve response counts for ev1
+  const countsEv1 = await rsvpService.countResponses(events[0].id);
+  logger.log(`Event "${events[0].name}" counts: Total: ${countsEv1.total}, Confirmed: ${countsEv1.confirmed}, Declined: ${countsEv1.declined}`);
+
+  // Retrieve response counts for ev2
+  const countsEv2 = await rsvpService.countResponses(events[0].id);
+  logger.log(`Event "${events[0].name}" counts: Total: ${countsEv2.total}, Confirmed: ${countsEv2.confirmed}, Declined: ${countsEv2.declined}`);
 }
 
 main().catch((error) => console.error(error));
