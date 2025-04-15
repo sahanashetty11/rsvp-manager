@@ -45,7 +45,7 @@ async function main() {
   logger.log("Confirmed attendees: " + confirmedEv1.map(p => p.email).join(", "));
 
   // Retrieve confirmed attendees for ev2
-  const confirmedEv2 = await rsvpService.getConfirmedAttendees(events[0].id);
+  const confirmedEv2 = await rsvpService.getConfirmedAttendees(events[1].id);
   logger.log("Confirmed attendees: " + confirmedEv2.map(p => p.email).join(", "));
 
   // Retrieve response counts for ev1
@@ -53,8 +53,8 @@ async function main() {
   logger.log(`Event "${events[0].name}" counts: Total: ${countsEv1.total}, Confirmed: ${countsEv1.confirmed}, Declined: ${countsEv1.declined}`);
 
   // Retrieve response counts for ev2
-  const countsEv2 = await rsvpService.countResponses(events[0].id);
-  logger.log(`Event "${events[0].name}" counts: Total: ${countsEv2.total}, Confirmed: ${countsEv2.confirmed}, Declined: ${countsEv2.declined}`);
+  const countsEv2 = await rsvpService.countResponses(events[1].id);
+  logger.log(`Event "${events[1].name}" counts: Total: ${countsEv2.total}, Confirmed: ${countsEv2.confirmed}, Declined: ${countsEv2.declined}`);
 }
 
 main().catch((error) => console.error(error));
