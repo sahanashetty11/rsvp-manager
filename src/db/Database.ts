@@ -19,6 +19,7 @@ export class Database {
         id TEXT PRIMARY KEY,
         email TEXT UNIQUE NOT NULL,
         name TEXT NOT NULL,
+        gender TEXT NOT NULL,
         lastUpdated TEXT NOT NULL
       )
     `);
@@ -28,6 +29,8 @@ export class Database {
       CREATE TABLE IF NOT EXISTS event (
         id TEXT PRIMARY KEY,
         event_name TEXT NOT NULL,
+        event_location TEXT NULL,
+        event_date DATE NOT NULL,
         lastUpdated TEXT NOT NULL
       )
     `);
@@ -50,12 +53,13 @@ export class Database {
   public async saveOrUpdatePlayer(player: Player): Promise<void> {
     const timestamp = new Date().toISOString();
     await this.db.run(
-      `INSERT INTO player (id, email, name, lastUpdated)
-       VALUES (?, ?, ?, ?)
-       ON CONFLICT(id) DO UPDATE SET email = excluded.email, name = excluded.name, lastUpdated = excluded.lastUpdated`,
+      `INSERT INTO player (id, email, name, gender, lastUpdated)
+       VALUES (?, ?, ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET email = excluded.email, name = excluded.name, gender = excluded.gender, lastUpdated = excluded.lastUpdated`,
       player.id,
       player.email,
       player.name,
+      player.gender,
       timestamp
     );
   }
@@ -64,11 +68,13 @@ export class Database {
   public async saveOrUpdateEvent(event: Event): Promise<void> {
     const timestamp = new Date().toISOString();
     await this.db.run(
-      `INSERT INTO event (id, event_name, lastUpdated)
-       VALUES (?, ?, ?)
-       ON CONFLICT(id) DO UPDATE SET event_name = excluded.event_name, lastUpdated = excluded.lastUpdated`,
+      `INSERT INTO event (id, event_name, event_location, event_date, lastUpdated)
+       VALUES (?, ?, ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET event_name = excluded.event_name, event_location = excluded.event_location, event_date = excluded.event_date, lastUpdated = excluded.lastUpdated`,
       event.id,
       event.name,
+      event.location,
+      event.event_date.toISOString(),
       timestamp
     );
   }

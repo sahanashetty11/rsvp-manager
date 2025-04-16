@@ -18,18 +18,18 @@ async function main() {
   const rsvpService = new RsvpService(logger, database);
 
   const players: Player[] = [
-    { id: "p1", email: "sahana@gmail.com", name: "Sahana" },
-    { id: "p2", email: "shivani@gmail.com", name: "Shivani" },
-    { id: "p3", email: "kumar@yahoo.com", name: "Kumar" },
-    { id: "p4", email: "george@outlook.com", name: "George" },
-    { id: "p5", email: "jessica@outlook.com", name: "Jessica" },
-    { id: "p6", email: "john@outlook.com", name: "John" }
+    { id: "p1", email: "sahana@gmail.com", name: "Sahana" , gender: "Female"},
+    { id: "p2", email: "shivani@gmail.com", name: "Shivani" , gender: "Female"},
+    { id: "p3", email: "kumar@yahoo.com", name: "Kumar" , gender: "Male"},
+    { id: "p4", email: "george@outlook.com", name: "George" , gender: "Male"},
+    { id: "p5", email: "jessica@outlook.com", name: "Jessica" , gender: "Female"},
+    { id: "p6", email: "john@outlook.com", name: "John", gender: "Male" }
   ];
   await playerService.addOrUpdatePlayers(players);
 
   const events: Event[] = [
-    { id: "ev1", name: "Annual Team Meeting" },
-    { id: "ev2", name: "Fun Time" }
+    { id: "ev1", name: "Zac Brown Band", location: "Mohegan Sun Area", event_date: new Date("2025-04-11T10:00:00Z")},
+    { id: "ev2", name: "Hardy", location: "Xfinity theatre", event_date: new Date("2025-05-01T10:00:00Z")}
   ];
   await eventService.addOrUpdateEvents(events);
 

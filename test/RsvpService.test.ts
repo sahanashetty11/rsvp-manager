@@ -23,8 +23,8 @@ describe("RsvpService", () => {
   });
 
   test("should add a valid RSVP entry (status: 'Yes')", async () => {
-    const player: Player = { id: "p1", email: "sahana@gmail.com", name: "Sahana" };
-    const event: Event = { id: "ev1", name: "Annual Team Meeting" };
+    const player: Player = { id: "p1", email: "sahana@gmail.com", name: "Sahana", gender: "Female" };
+    const event: Event = { id: "ev1", name: "Hardy", location: "Mohegan Sun Area", event_date:  new Date("2025-06-12T18:00:00Z") };
 
     // Insert player and event first.
     await database.saveOrUpdatePlayer(player);
@@ -43,8 +43,8 @@ describe("RsvpService", () => {
   });
 
   test("should update an existing RSVP entry", async () => {
-    const player: Player = { id: "p2", email: "shivani@gmail.com", name: "Shivani" };
-    const event: Event = { id: "ev2", name: "Fun Time" };
+    const player: Player = { id: "p2", email: "shivani@gmail.com", name: "Shivani", gender: "Female"};
+    const event: Event = { id: "ev2", name: "Fun Time", location: "Premier Theatre", event_date:  new Date("2025-05-01T14:00:00Z") };
 
     await database.saveOrUpdatePlayer(player);
     await database.saveOrUpdateEvent(event);
@@ -64,8 +64,8 @@ describe("RsvpService", () => {
   });
 
   test("should throw error for invalid RSVP status", async () => {
-    const player: Player = { id: "p3", email: "george@outlook.com", name: "George" };
-    const event: Event = { id: "ev3", name: "Fun Time" };
+    const player: Player = { id: "p3", email: "george@outlook.com", name: "George", gender: "Male" };
+    const event: Event = { id: "ev3", name: "Fun Time", location: "Premier Theatre", event_date:  new Date("2025-04-11T10:00:00Z")};
 
     await database.saveOrUpdatePlayer(player);
     await database.saveOrUpdateEvent(event);
@@ -79,7 +79,7 @@ describe("RsvpService", () => {
   });
 
   test("should throw error when player does not exist", async () => {
-    const event: Event = { id: "ev4", name: "Game Time" };
+    const event: Event = { id: "ev4", name: "Game Time", location: "Xfinity theatre", event_date: new Date("2025-05-01T10:00:00Z")};
     await database.saveOrUpdateEvent(event);
 
     // Do not insert any player.
@@ -89,7 +89,7 @@ describe("RsvpService", () => {
   });
 
   test("should throw error when event does not exist", async () => {
-    const player: Player = { id: "p4", email: "jessica@example.com", name: "Jessica" };
+    const player: Player = { id: "p4", email: "jessica@example.com", name: "Jessica", gender: "Female"};
     await database.saveOrUpdatePlayer(player);
 
     // Do not insert any event.
@@ -99,9 +99,9 @@ describe("RsvpService", () => {
   });
 
   test("should handle multiple RSVP entries for different players", async () => {
-    const player1: Player = { id: "p5", email: "kumar@example.com", name: "Kumar" };
-    const player2: Player = { id: "p6", email: "frank@example.com", name: "Frank" };
-    const event: Event = { id: "ev5", name: "Cricket Catch" };
+    const player1: Player = { id: "p5", email: "kumar@example.com", name: "Kumar", gender: "Male" };
+    const player2: Player = { id: "p6", email: "frank@example.com", name: "Frank", gender: "Male" };
+    const event: Event = { id: "ev5", name: "Cricket Catch", location: "Xfinity theatre", event_date: new Date("2025-04-11T11:00:00Z") };
 
     await database.saveOrUpdatePlayer(player1);
     await database.saveOrUpdatePlayer(player2);
